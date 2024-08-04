@@ -1,7 +1,50 @@
-<p>shop works!</p>
-<ul>
-    <li class="List-unstyled" *ngFor="let product of products">
-        {{product.name}}
-    </li>
-</ul>
-<p>shop was worksing!</p>
+<div class="container">
+  <div class="row">
+
+    <section class="col-3">
+      <h5 class="text-warning ml-3">Sort</h5>
+      <select class="custom-select custom-select-lg mb-3">
+        <option>Alphabetical</option>
+        <option>price: low to high</option>
+        <option>price: high to low </option>
+      </select>
+
+      <h5 class="text-warning ml-3">Brands</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+      <h5 class="text-warning ml-3">types</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+    </section>
+
+    <section class="col-9">
+      <div class="d-flex justify-content-between ali align-items-center pd-2 ">
+
+        <header><span>Showing <strong>10</strong> of <strong> 20 </strong> Result</span></header>
+        <div class="form-inline  mt-2">
+          <input type="text" class="from-control mr-3" style="width: 300px;" placeholder="search">
+          <button class="btn btn-primary my-2">search</button>
+          <button class="btn btn-success ml-2 my-2">reseat</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4" *ngfor="let product of products">
+          <app-product-item></app-product-item>
+        </div>
+      </div>
+
+
+    </section>
+  </div>
+</div>
