@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPagination } from '../shared/models/pagination';
+import { IBrand } from '../shared/models/brand';
+import { IType } from '../shared/models/productType';
 
 //where  this is provided  in 
 @Injectable({
@@ -24,12 +26,19 @@ export class ShopService {
 //http://localhost:44303/api/Products?pagesize=2
 //https://localhost:44303/api/Products?pagesize=2
 
-    return this.http.get<IPagination>(this.baseUrl+'Products?pagesize=2')
+    return this.http.get<IPagination>(this.baseUrl+'Products?pagesize=5')
 
     // return this.http.get<IPagination>(this.baseUrl+'product', {
     //   headers: {
     //     'Access-Control-Allow-Origin': '*'
     //   }
     // })
+  }
+
+  getBrands(){
+    return this.http.get<IBrand[]>(this.baseUrl+'Products/brands')
+  }
+  getTypes(){
+    return this.http.get<IType[]>(this.baseUrl+'Products/types')
   }
 }
