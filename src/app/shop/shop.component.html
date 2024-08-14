@@ -17,7 +17,7 @@
       <ul class="list-group my-3">
         <li class="list-group-item" *ngFor="let brand of brands"
         
-        [class.active]="brand.id===this.shopPrams.brandId"
+        [class.active]="brand.id===this.shopParams.brandId"
         [value]="brand.id"
         (click)="onBrandsSelected(brand.id)"
         
@@ -30,7 +30,7 @@
       <ul class="list-group my-3">
         <li class="list-group-item" *ngFor="let type of types"
         
-        [class.active]="type.id===this.shopPrams.typeId"
+        [class.active]="type.id===this.shopParams.typeId"
         [value]="type.id"
         (click)="ontypeSelected(type.id)"
         >
@@ -43,33 +43,14 @@
     <section class="col-9">
       <div class="d-flex justify-content-between ali align-items-center pd-2 ">
 
-        <header>
-          <span  *ngIf="totalCount && totalCount >0">Showing 
-            <strong>{{(this.shopPrams.pageNumber-1)*this.shopPrams.pageSize+1}}
-              -
-              {{this.shopPrams.pageNumber* this.shopPrams.pageSize
-              
-                >this.totalCount
-                ?this.totalCount
-                : this.shopPrams.pageNumber* this.shopPrams.pageSize
-              
-              }}
-            </strong>
-             of 
-            <strong> {{this.totalCount}} </strong>
-            
-            Result</span>
-            <span  *ngIf="totalCount ===0">
-              There are <strong>0</strong> itesm for  this  filter 
-            </span>
-        
-        </header>
+        <app-paging-header [totalCount]="totalCount" [pageNumber]="this.shopParams.pageNumber"
+        [pageSize]="shopParams.pageSize"></app-paging-header>
 
         
         <div class="d-flex gap-2">
-          <input type="text" class="from-control mr-3" style="width: 300px; height: 50px" placeholder="search">
-          <button class="btn btn-primary my-2">search</button>
-          <button class="btn btn-success ml-2 my-2">reseat</button>
+          <input (keyup.enter)="onSearch()" type="text" class="from-control mr-3" #search style="width: 300px; height: 50px" placeholder="search">
+          <button  (click)="onSearch()" class="btn btn-primary my-2">search</button>
+          <button  (click)="onReset()" class="btn btn-success ml-2 my-2">reseat</button>
         </div>
       </div>
 
@@ -88,7 +69,7 @@
          [boundaryLinks]="true" 
          [totalItems]="this.totalCount"
          (pageChanged)="onPageChanged($event)"
-         [itemsPerPage]="this.shopPrams.pageSize"
+         [itemsPerPage]="this.shopParams.pageSize"
         previousText="&lsaquo;" 
         nextText="&rsaquo;" 
         firstText="&laquo;"

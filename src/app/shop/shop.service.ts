@@ -33,7 +33,9 @@ export class ShopService {
     params=params.append('sort',shopPrams.sort);
     params=params.append('pageIndex',shopPrams.pageNumber.toString());
     params=params.append('sort',shopPrams.pageSize.toString());
-
+    if(shopPrams.search){
+      params=params.append('search',shopPrams.search);
+    }
 
     //return this.http.get<IPagination>(this.baseUrl+'Products?pagesize=2')
 //http://localhost:54382/WeatherForecast  http://localhost:44303/WeatherForecast

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ShopParams } from '../shared/models/ShopParams';
 import { ShopService } from './shop.service';
 import { IProduct } from '../shared/models/product';
@@ -12,14 +12,16 @@ import { IType } from '../shared/models/productType';
   styleUrl: './shop.component.scss'
 })
 export class ShopComponent {
-
+  @ViewChild('search', { static: false })
+  searchTerm!: ElementRef;
+  
   products?: IProduct[];
   brands: IBrand[];
   types: IType[];
   totalCount:number;
   // bransIdSelected?: number;
   // typeIdSelected?: number;
-  shopPrams=new ShopParams();
+  shopParams=new ShopParams();
   sortOptions = [
     {name: 'Alphabetical', value: 'name'},
     {name: 'Price: Low to high', value: 'priceAsc'},
@@ -38,11 +40,11 @@ export class ShopComponent {
     this.getTypes();
   }
   getProductsd() {
-    this.shopService.getProduct(this.shopPrams).subscribe(response => {
+    this.shopService.getProduct(this.shopParams).subscribe(response => {
 
       this.products = response?.data;
-      this.shopPrams.pageNumber=response!.pageIndex;
-      this.shopPrams.pageSize=response!.pageSize;
+      this.shopParams.pageNumber=response!.pageIndex;
+      this.shopParams.pageSize=response!.pageSize;
       this.totalCount=response!.count;
     }, error => {
       console.log(error)
@@ -68,21 +70,35 @@ export class ShopComponent {
     })
   }
   onBrandsSelected(bradnId: number) {
-    this.shopPrams.brandId = bradnId;
+    this.shopParams.brandId = bradnId;
     this.getProductsd();
   }
   ontypeSelected(typeId: number) {
-    this.shopPrams.typeId = typeId;
+    this.shopParams.typeId = typeId;
     this.getProductsd();
 
   }
   onSortSelected(sort: string) {
     
-  this.shopPrams.sort=sort;
+  this.shopParams.sort=sort;
   this.getProductsd();
   }
   onPageChanged(event: any) {
-    this.shopPrams.pageNumber=event.page;
+    this.shopParams.pageNumber=event.page;
     this.getProductsd()
+  }
+   onSearch() {
+  
+    this.shopParams.search = this.searchTerm.nativeElement.value;
+  
+ 
+    this.getProductsd();
+  }
+
+  onReset() {
+    this.searchTerm.nativeElement.value = '';
+    this.shopParams = new ShopParams();
+   
+    this.getProductsd();
   }
 }
